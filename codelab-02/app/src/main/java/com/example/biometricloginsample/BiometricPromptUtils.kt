@@ -16,10 +16,13 @@
 
 package com.example.biometricloginsample
 
+import android.app.KeyguardManager
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import java.net.Authenticator
 
 // Since we are using the same methods in more than one Activity, better give them their own file.
 object BiometricPromptUtils {
@@ -44,7 +47,7 @@ object BiometricPromptUtils {
 
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
-                Log.d(TAG, "Authentication was successful")
+                Log.d(TAG, "Authentication was successful, type: ${result.authenticationType}")
                 processSuccess(result)
             }
         }
@@ -57,6 +60,6 @@ object BiometricPromptUtils {
             setSubtitle(activity.getString(R.string.prompt_info_subtitle))
             setDescription(activity.getString(R.string.prompt_info_description))
             setConfirmationRequired(false)
-            setNegativeButtonText(activity.getString(R.string.prompt_info_use_app_password))
+            setAllowedAuthenticators(BiometricManager.Authenticators.DEVICE_CREDENTIAL or BiometricManager.Authenticators.BIOMETRIC_STRONG)
         }.build()
 }

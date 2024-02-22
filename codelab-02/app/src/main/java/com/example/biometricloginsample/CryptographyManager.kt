@@ -125,6 +125,7 @@ private class CryptographyManagerImpl : CryptographyManager {
             setEncryptionPaddings(ENCRYPTION_PADDING)
             setKeySize(KEY_SIZE)
             setUserAuthenticationRequired(true)
+            setUserAuthenticationValidityDurationSeconds(0)
         }
 
         val keyGenParams = paramsBuilder.build()
